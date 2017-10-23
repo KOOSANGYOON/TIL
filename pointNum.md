@@ -108,12 +108,12 @@ var printNum = function(length) {
 var inputLength = parseInt(prompt("가로, 세로 길이를 얼마나 나열할까요?"));
 
 printNum(inputLength);
-~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 _**5. 직각 삼각형으로 쌓기 (배열사용)**_
 ---
 
-~~~javascript
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~javascript
 var printNum = function(num) {
   for (var i = 1; i <= num; i++) {
     var result = [];
@@ -130,12 +130,12 @@ var printNum = function(num) {
 var inputLength = parseInt(prompt("몇 층으로 나열할까요?"));
 
 printNum(inputLength);
-~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 _**6. 두 수의 차이를 입력받아 2열로 나열하기**_
 ---
 
-~~~javascript
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~javascript
 var printNum = function(num) {
   var result = [];
   
@@ -154,5 +154,5 @@ var printNum = function(num) {
 var inputNum = parseInt(prompt("숫자를 입력하세요."));
 
 printNum(inputNum);
-~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

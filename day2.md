@@ -1,4 +1,6 @@
-# Today Coding
+# DAY 2 (2017.10.17.)
+
+#Today Coding
 
 ## 별 찍기 과제
 

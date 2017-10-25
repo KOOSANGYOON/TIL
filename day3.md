@@ -1,219 +1,153 @@
-배열과 문자열
-============
+# Today Coding
 
-_**1. 배열**_
--------------
+## 숫자 찍기 과제
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 리스트와 함께 많이 이용되는 **자료구조**의 하나
-* 주로 같은 용도의 데이터를 묶어서 저장하고 관리하기 위해 사용
+_**1. 시작수부터 끝수까지 일렬로 나열**_
 
-  _이렇게 하지 말자!!_
-  var a = [1, 2.0, 'good', {type: "soilder77", HP: "100"}];
-  같은 타입의 데이터끼리 묶을 수 있도록!!
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-_ex 1) 길이를 알 수 없는 배열의 마지막 원소를 읽어 오려면?_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 방법 1
-  var num = a[a.length - 1];
-  console.log(num);
-
-* 방법 2
-  var num = a.pop();
-  console.log(num);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-_**2. 문자열과 배열**_
-------------------------
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 배열과 문자열은 매우 흡사하다. 하지만,
-    문자열 : immutable
-    배  열 : mutable
-  인 차이가 있다.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-_**3. pop과 push**_
----------------------
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* a.pop 은 a.push 의 반대이다. 
-  즉, 배열의 **끝**에 값을 넣고 뺄 수 있다.
-
-ex) var num = a.pop();
-    console.log(a, num);
-    a.push(7);
-    console.log(a);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-_**4. join()**_
------------------
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 배열에는 더하기가 없다. 더하기는 숫자나 문자열에만 존재한다.
-  배열을 문자열로 변환시켜 업무를 수행할 때, join()이 필요하다.
-
-ex 1) [1, 2, 3] + [4, 5];
-      결과 = "1,2,34,5"
-
-ex 2) var a = [1, 2, 3];
-      var b = [4, 5];
-
-      a.join() + b.join();
-      결과 = "1,2,3" + "4,5" = "1,2,34,5"
-
-ex 3) a.join("");
-      결과 = "1234"
-
-ex 4) a.join("-");
-      결과 = "1-2-3-4"
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-_**(coding) 배열의 마지막에 원소를 추가하는 함수 append(array, data)를 구현하자.**_
--------------------------------------------------------------------------------------
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~javascript
-//팁 : arguments (parameter, 매개변수, 인자, 인수) 는 건드리지 말자!!
-
-var append = function(array, data) {
-  array[array.length] = data;
-}
-
-var array = [1, 2, 3, 4, 5];
-var data = Math.ceil(10 * Math.random());
-
-append(array, data);
-console.log(array);
-*/
-
-/* 메소드를 만들어버리는 방법도 있다. prototype 객체 전체에 같은 메소드를 만들어버리는 것.
-var a = [1, 2, 3];
-Array.prototype.append = function(data) {
-  this[this.length] = data;
-}
-
-a.append(4);
-console.log(a);
-*/
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-_**5. shift()와 unshift()**_
-------------------------------
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* shift()는 배열의 첫 값을 빼준다.
-  pop()과는 반대로 작동한다고 이해할 수 있다.
-
-* unshift()는 배열의 첫 값에 새로운 값을 넣고, 원래의 값들을 한 칸씩 뒤로 미룬다.
-  push()와는 반대로 작동한다고 이해할 수 있다.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-_**(coding) shift()와 unshift()를 구현해 봅시다.**_
-----------------------------------------------------
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~javascript
-var myShift = function(array) {
-  var myArray = array;
-  var lastIndex = myArray.length;
-  var result = myArray[0];
-
-  for (var i = 0; i < lastIndex; i++) {
-    myArray[i] = myArray[i + 1];
+```javascript
+var printNum = function(start, end) {   //시작 수, 끝 수를 입력받아 문자열로 출력해주는 함수
+  if(start > end) {
+    alert("[ERROR] 시작값이 끝값보다 클 수 없습니다.");
+  }else {
+    var result = "";
+    for (var i = 0; i < end - start + 1; i++) {
+      if (i != 0){
+        result = result + " " + (start + i);
+      }else {
+        result = result + (start + i);
+      }
+    }
+    console.log(result);
   }
-  array.length--;
-
-  return result;
 }
 
+var startNum = parseInt(prompt("시작 수를 입력해주세요."));
+var endNum = parseInt(prom
+pt("끝 수를 입력해주세요."));
 
-var myUnshift = function(array, data) {
-  var myArray = array;
-  var myData = data;
-  var lastIndex = myArray.length;
+printNum(startNum, endNum);
+```
 
-  for (var i = 0; i < lastIndex; i++) {
-    myArray[lastIndex - i] = myArray[(lastIndex - i) - 1];
+_**2. 4개씩 나열하기**_
+
+```javascript
+var printNum = function(num) {
+  for (var i = 0; i < num; i++) {
+    var result = "";
+    for (var j = 1; j <= num; j++) {
+      if (j % num != 0) {
+        result = result + (num * i + j) + " ";
+      }else {
+        result = result + (num * i + j) + " ";
+        console.log(result);
+      }
+    }
   }
-  myArray[1] = myArray[0];
-  myArray[0] = myData;
 }
 
-var a = [1, 3, 5, 7, 9];
+var inputNum = parseInt(prompt("숫자를 입력해 주세요."));
 
-console.log("-----start-----");
-console.log(a);
-console.log("-----shift start-----");
+printNum(inputNum);
+```
 
-var b = myShift(a);
+_**3. N X N 배열을 M 단위로 나눠 출력**_
 
-console.log(a);
-console.log("shitf return value is " + b);
-console.log("-----unshift start-----");
+```javascript
+var printNum = function(length, space) {
+  for (var i = 1; i <= length; i++) {
+    var result = "";
+    var k = (i * space) - (space - 1);
+    for (var j = 1; j <= length; j++) {
+      if(j % length != 0) {
+        result = result + (k + space * (j - 1)) + " ";
+      }else {
+        result = result + (k + space * (j - 1)) + " ";
+        console.log(result);
+      }
+    }
+  }
+}
 
-myUnshift(a, 11);
+var inputLength = parseInt(prompt("길이를 얼마나 나열할까요?"));
+var inputSpace = parseInt(prompt("각 수의 간격은 몇으로 할까요?"));
 
-console.log(a);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+printNum(inputLength, inputSpace);
+```
 
-_**6. 배열을 합해주는 concat()**_
-------------------------------
+_**4. 뱀처럼 꼬불꼬불 나열**_
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* concat()을 사용하면 두 배열을 붙이는 효과를 볼 수 있다.
+```javascript
+var printNum = function(length) {
+  for (var i = 0; i < length; i++) {
+    var result = "";
 
-ex 1) [1,2].concat([3,4,5]);
+    if (i % 2 === 0) {
+      for (var j = 1; j <= length; j++) {
+        if (j % length != 0) {
+          result = result + ((length * i) + j) + " ";
+        }else {
+          result = result + ((length * i) + j) + " ";
+          console.log(result);
+        }
+      }
+    }else {
+      for (var j = 1; j <= length; j++) {
+        if (j % length != 0) {
+          result = result + (length * (i + 1) - (j-1)) + " ";
+        }else {
+          result = result + (length * (i + 1) - (j-1)) + " ";;
+          console.log(result);
+         }
+      }
+    }
+  }
+}
 
-      결과 = [1,2,3,4,5]
+var inputLength = parseInt(prompt("가로, 세로 길이를 얼마나 나열할까요?"));
 
-ex 2) var a = [1,2];
-      var b = [3,4,5];
-      a.concat(b);
+printNum(inputLength);
+```
 
-      결과 = [1,2,3,4,5]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+_**5. 직각 삼각형으로 쌓기 (배열사용)**_
 
-_**7. slice()와 splice()**_
--------------------------------
+```javascript
+var printNum = function(num) {
+  for (var i = 1; i <= num; i++) {
+    var result = [];
+    for (var j = 0; j < num; j++) {
+      var k = j + 1;
+      if (j < i) {
+        result.push(k);
+      }
+    }
+    console.log(result);
+  }
+}
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* slice(a,b) 는 배열에서 인덱스 a 부터 b 를 포함하지 않는 범위를 출력해준다.
-  a 값에는 변화가 없다.
+var inputLength = parseInt(prompt("몇 층으로 나열할까요?"));
 
-  ex) var a = [1,2,3,4,5];
-      a.slice(1,3);
+printNum(inputLength);
+```
 
-      결과 = [2,3]		//a[1] <= X < a[3] 의 부분만 출력해준다.
+_**6. 두 수의 차이를 입력받아 2열로 나열하기**_
 
-      console.log(a);
+```javascript
+var printNum = function(num) {
+  var result = [];
 
-      결과 = [1,2,3,4,5]
+  for (var i = 0; i <= num; i++) {
+    var resultNum = num - i;
+    result.push(resultNum);
+    result.push(i);
 
-* splice(a,b) 는 배열에서 인덱스 a 부터 b 개의 값을 출력해준다.
-  a 값은 splice() 의 리턴값을 제외한 나머지만 남게된다.
+    console.log(result);
 
-  ex) var a = [1,2,3,4,5];
-      a.splice(1,3);
+    result.pop();
+    result.pop();
+  }
+}
 
-      결과 = [2,3,4]
+var inputNum = parseInt(prompt("숫자를 입력하세요."));
 
-      console.log(a);
-
-      결과 = [1,5]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-_**8. indexOf(), lastIndexOf()**_
---------------------
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* indexOf() 와 lastIndexOf() 를 이용하여 배열이나 문자열안의 원소를 가지고 인덱스를 찾을 수 있다.
-
-  ex) var a = [1,2,3,4,5,4,4,3,2,1];
-      a.indexOf(4);
-
-      결과 = 3
-
-      a.lastIndexOf(4);
-
-      결과 = 6
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+printNum(inputNum);
+```

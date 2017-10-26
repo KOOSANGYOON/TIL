@@ -1,10 +1,3 @@
-function myFunction() {
-    document.getElementById("demo").style.fontSize = "25px";
-    document.getElementById("demo").style.color = "red";
-    document.getElementById("demo").style.backgroundColor = "yellow";
-}
-
-
 var result = Math.ceil(100 * Math.random());
 var challengeNum = 1;
 console.log(result);

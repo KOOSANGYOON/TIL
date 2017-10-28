@@ -11,6 +11,7 @@ var inputName = function(totalNum) {
   }
 };
 
+
 var selPeople = function() {
   var selMan = [];
   for (var i = 0; i < totalPeopleNum; i++) {

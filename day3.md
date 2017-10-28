@@ -131,7 +131,7 @@ var inputLength = parseInt(prompt("몇 층으로 나열할까요?"));
 printNum(inputLength);
 ```
 
-_**6. 두 수의 차이를 입력받아 2열로 나열하기**_
+_**6. 두 수의 차이를 입력 받아 2열로 나열하기**_
 
 ```javascript
 var printNum = function(num) {

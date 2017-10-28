@@ -4,6 +4,7 @@
 
 ## 러시안룰렛 게임
 
+
 ### _**my code**_
 
 ```javascript

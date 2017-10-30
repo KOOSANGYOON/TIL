@@ -1,0 +1,270 @@
+> **HONUX의 공부 방향 제시**
+
+> 필수적으로 내가 공부해야 할 과목들 (중요도 순)
+   >1. 자료구조
+   >2. 알고리즘
+   >3. 네트워크 (HTTP)
+   >4. 데이터베이스
+   >5. 운영체제
+
+ # DAY 10
+
+ ## 함수
+
+
+- 함수의 중요한 특징
+ - 입력값이 같으면 출력값은 무조건 같아야 함.
+
+
+- 반드시 괄호가 있어야 함수 호출이 이루어진다.
+ - ex) repeat(); (O), repeat; (X)
+
+
+- 함수에서 매개변수가 필요한 이유
+ - 함수를 호출하는 바깥에서 처리할 데이터를 알려주는 것
+
+
+- ex) repeat 함수 구현하기
+
+```javascript
+var repeat = function(num, text) {
+  for (var i = 0; i < num; i++) {
+    console.log(text);
+  }
+}
+
+
+repeat(2, "hello");
+```
+
+- return은 2가지 의미를 가지고 있다. (값의 반환, 함수 종료)
+ - return 1; // 리턴값 1을 반환해주는 의미
+ - return;   // 함수를 종료하겠다는 의미
+
+```javascript
+var test1 = function(text) {
+  if (text === "exit") {
+    return;
+  }
+  console.log("이게 보여요?");
+};
+
+test1("hoho");
+test1("exit");
+```
+
+## 함수의 시그니처
+
+
+- 연습문제 1.
+ - 배열의 첫번째 원소와 마지막 원소의 순서를 바꾸는 함수를 작성해봅시다.
+
+```javascript
+var changeIndex = function(array) {
+  var temp;
+
+  temp = array[array.length - 1];
+  array[array.length - 1] = array[0];
+  array[0] = temp;
+}
+
+var array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+changeIndex(array);
+
+console.log(array);
+```
+
+## call back 함수 사용법
+
+```
+var calc = function(a, b, fn) {
+  return fn(a, b);
+};
+
+var myAdd = function(n1, n2) {
+  return n1 + n2;
+};
+
+var x = calc(10, 20, myAdd);
+```
+
+- 이렇게도 쓸 수 있다.
+
+```javascript
+x = calc(10, 20, function(n1, n2)) {
+  return n1 + n2;
+}
+```
+
+- 이것도 가능하다. (arrow function)
+
+```javascript
+x = calc(10, 5, (a, b) => (a + b));
+```
+
+- 연습문제 2.
+ - 이전에 풀었던 문제를 함수를 이용하여 다시 구현해봅시다.
+
+
+- 연습문제 3.
+ - 구구단을 출력하는 함수를 구현해봅시다. 디폴트는 2단 출력.
+
+---
+
+## CANVAS 사용하여 그림 그리기
+ - 체스판 그리기
+
+
+```javascript
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+ctx.strokeRect(0, 0, 640, 480);
+//ctx.fillStyle = "red"
+//ctx.fillRect(0, 0, 10, 10);
+for(i = 0; i < 8; i++) {
+  if (i % 2 === 0) {
+    for(j = 0; j < 8; j = j + 2) {
+      ctx.fillStyle = "black"
+      ctx.fillRect(80 * (j), 60 * (i), 80, 60);
+    }
+    for(j = 1; j < 8; j = j + 2) {
+      ctx.fillStyle = "white"
+      ctx.fillRect(80 * (j), 60 * (i), 80, 60);
+    }
+  }else {
+    for(j = 0; j < 8; j = j + 2) {
+      ctx.fillStyle = "white"
+      ctx.fillRect(80 * (j), 60 * (i), 80, 60);
+    }
+    for(j = 1; j < 8; j = j + 2) {
+      ctx.fillStyle = "black"
+      ctx.fillRect(80 * (j), 60 * (i), 80, 60);
+    }
+  }
+}
+```
+
+ - 졸라맨 그리기
+
+```javascript
+vvar canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+ctx.strokeRect(0, 0, 640, 480);
+
+ctx.strokeStyle = "black"
+
+ctx.arc(320,120,40,0,Math.PI * 2,false);
+ctx.moveTo(310, 120);
+ctx.arc(300,120,10,0,Math.PI,true);
+ctx.moveTo(350, 120);
+ctx.arc(340,120,10,0,Math.PI,true);
+ctx.moveTo(340, 130);
+ctx.arc(320,130,20,0,Math.PI,false);
+ctx.stroke();
+
+ctx.beginPath();  //이 때부터 한붓그리기
+ctx.moveTo(320, 160);  //펜을 잠시 뗄 수 있게
+ctx.lineTo(320, 300);
+ctx.lineTo(240, 400);
+ctx.moveTo(320, 300);
+ctx.lineTo(400, 400);
+ctx.moveTo(200, 200);
+ctx.lineTo(440, 200);
+ctx.stroke();
+```
+
+ - 라이언 얼굴 그리기
+
+```javascript
+ var canvas = document.getElementById("canvas");
+ var ctx = canvas.getContext("2d");
+ ctx.strokeRect(0, 0, 640, 480);
+
+//라이언 얼굴 사진 불러오기 (보고 그리기용)
+ var bgImage = new Image();
+ bgImage.onload = function () {
+   ctx.drawImage(bgImage, 30, 30);
+ };
+ bgImage.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3-KMhBbHMcaWYpKdRpcaLSqIsCohg3dSNvsQnhd5-B5cIP2-Dg";
+
+ //얼굴 동그라미
+ ctx.beginPath();
+ ctx.fillStyle = "GoldenRod"
+ ctx.lineWidth = 3;
+ ctx.arc(320,140,80,0,Math.PI * 2,false);
+ ctx.fill();
+ ctx.stroke();
+
+ //오른쪽 귀
+ ctx.beginPath();
+ ctx.lineWidth = 3;
+ ctx.moveTo(365, 73);
+ ctx.arc(360,70,15,Math.PI * 1/5,Math.PI * 8/7,true);
+ ctx.fill();
+ ctx.stroke();
+ //왼쪽 귀
+ ctx.beginPath();
+ ctx.lineWidth = 3;
+ ctx.moveTo(275, 75);
+ ctx.arc(275,70,15,Math.PI * 23/12,Math.PI * 5/7,true);
+ ctx.fill();
+ ctx.stroke();
+
+ //왼쪽 눈썹
+ ctx.beginPath();
+ ctx.lineWidth = 3;
+ ctx.moveTo(270, 120);
+ ctx.lineTo(300,120);
+ ctx.moveTo(270, 122);
+ ctx.lineTo(300,122);
+ ctx.stroke();
+ //오른쪽 눈썹
+ ctx.beginPath();
+ ctx.lineWidth = 3;
+ ctx.moveTo(340, 120);
+ ctx.lineTo(370, 120);
+ ctx.moveTo(340, 122);
+ ctx.lineTo(370, 122);
+ ctx.stroke();
+ //왼쪽 눈
+ ctx.beginPath();
+ ctx.lineWidth = 3;
+ ctx.moveTo(290, 140);
+ ctx.arc(290,140,3,0,Math.PI * 2,false);
+ ctx.stroke();
+ //오른쪽 눈
+ ctx.beginPath();
+ ctx.lineWidth = 3;
+ ctx.moveTo(350, 140);
+ ctx.arc(350,140,3,0,Math.PI * 2,false);
+ ctx.stroke();
+ //코
+ ctx.beginPath();
+ ctx.lineWidth = 3;
+ ctx.moveTo(320, 155);
+ ctx.arc(320,155,3,0,Math.PI * 2,false);
+ ctx.stroke();
+ //코 밑 왼쪽 호
+ ctx.beginPath();
+ ctx.lineWidth = 3;
+ ctx.fillStyle = "White"
+ ctx.moveTo(320, 165);
+ ctx.arc(310,165,10,0,Math.PI * 3/2,false);
+ ctx.fill();
+ ctx.stroke();
+ //코 밑 오른쪽 호
+ ctx.beginPath();
+ ctx.lineWidth = 3;
+ ctx.moveTo(330, 155);
+ ctx.arc(330,165,10,Math.PI * 3/2,Math.PI,false);
+ ctx.fill();
+ ctx.stroke();
+ //코 밑 양쪽 호 연결선
+ ctx.beginPath();
+ ctx.lineWidth = 3;
+ ctx.moveTo(310, 155);
+ ctx.lineTo(330, 155);
+ ctx.fill();
+ ctx.stroke();
+ ```

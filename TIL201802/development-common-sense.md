@@ -72,3 +72,121 @@
 - https://github.com/JaeYeopHan/Interview_Question_for_Beginner
 
 ---
+## 2. RESTful API란 ?
+
+ ![Image](./restapi.png)
+
+### RESTful API의 탄생
+
+  REST는 `REpresentational State Transfer` 의 약자이며, 이를 있는 그대로 해석하면, '재현 상태 전송' 이다. 2000년도에 로이 필딩 (Roy Fielding)의 박사학위 논문에서 최초로 소개되었다. 로이 필딩은 HTTP의 주요 저자 중 한 사람으로 그 당시 웹(HTTP) 설계의 우수성에 비해 제대로 사용되어지지 못하는 모습에 안타까워하며 웹의 장점을 최대한 활용할 수 있는 아키텍처로써 REST를 발표했다.
+
+### REST 의 구성
+
+  REST 는 다음의 세가지로 이루어져 있다.
+
+  - 자원(RESOURCE) - URI
+  - 행위(Verb) - HTTP METHOD
+  - 표현(Representations)
+
+
+### REST 의 특징
+
+  1) Uniform (유니폼 인터페이스)
+
+  > Uniform Interface는 URI로 지정한 리소스에 대한 조작을 `통일되고 한정적인 인터페이스로 수행`하는 아키텍처 스타일이다.
+
+  2) Stateless (무상태성)
+
+  > REST는 무상태성 성격을 갖는다. 즉, 작업을 위한 `상태정보를 따로 저장하고 관리하지 않는다.` 세션 정보나 쿠키정보를 별도로 저장하고 관리하지 않기 때문에 API 서버는 들어오는 요청만 단순히 처리하면 되기 때문에, `서비스의 자유도가 높아지고` 서버에서 `불필요한 정보를 관리하지 않음으로써 구현이 단순` 하다.
+
+  3) Cacheable (캐시 가능)
+
+  > REST의 가장 큰 특징 중 하나는 HTTP라는 기존 웹표준을 그대로 사용하기 때문에, 웹에서 사용하는 기존 인프라를 그대로 활용할 수 있다. 따라서 HTTP가 가진 캐싱 기능이 적용 가능하다. HTTP 프로토콜 표준에서 사용하는 `Last-Modified태그` 나 `E-Tag` 를 이용하면 캐싱 구현이 가능하다.
+
+  4) Self-descriptiveness (자체 표현 구조)
+
+  > REST의 또 다른 큰 특징 중 하나는 REST API 메시지만 보고도 이를 쉽게 이해 할 수 있는 자체 표현 구조로 되어 있다는 것이다.
+
+  5) Client - Server 구조
+
+  > REST 서버는 API 제공하고, 클라이언트는 사용자 인증이나 컨텍스트(세션, 로그인 정보)등을 직접 관리하는 구조로 각각의 역할이 확실히 구분되기 때문에 클라이언트와 서버에서 개발해야 할 내용이 명확해지고 서로간 의존성이 줄어든다.
+
+  6) Hierarchical system (계층형 구조)
+
+  > REST 서버는 다중 계층으로 구성될 수 있으며 보안, 로드 밸런싱, 암호화 계층을 추가해 구조상의 유연성을 둘 수 있고 PROXY, 게이트웨이 같은 네트워크 기반의 중간매체를 사용할 수 있다.
+
+### RESTful 하게 API를 디자인 한다는 것은 무엇을 의미하는가?
+1. 리소스 와 행위 를 명시적이고 직관적으로 분리한다.
+
+  - 리소스는 `URI` 로 표현되는데 리소스가 가리키는 것은 `명사` 로 표현되어야 한다.
+
+  - 행위는 `HTTP Method` 로 표현하고, `GET(조회)`, `POST(생성)`, `PUT(기존 entity 전체 수정)`, `PATCH(기존 entity 일부 수정)`, `DELETE(삭제)` 을 분명한 목적으로 사용한다.
+
+  |  <center>Header1</center> |  <center>Header2</center> |  <center>Header3</center> |
+  |:--------|:--------:|--------:|
+  |**cell 1x1** | <center>cell 1x2 </center> |*cell 1x3* |
+  |**cell 2x1** | <center>cell 2x2 </center> |*cell 2x3* |
+  |**cell 3x1** | <center>cell 3x2 </center> |*cell 3x3* |
+
+2. Message는 Header와 Body를 명확하게 분리해서 사용한다.
+
+  - Entity에 대한 내용은 body에 담는다.
+
+  - 애플리케이션 서버가 행동할 판단의 근거가 되는 컨트롤 정보인 API 버전 정보, 응답받고자 하는 MIME 타입 등은 header에 담는다.
+
+  - header와 body는 http header 와 http body로 나눌 수도 있고, http body에 들어가는 json 구조로 분리할 수도 있다.
+
+3. API 버전을 관리한다.
+
+  - 환경은 항상 변하기 때문에 API의 signature 가 변경될 수도 있음에 유의하자.
+
+  - 특정 API를 변경할 때는 반드시 하위호환성을 보장해야 한다.
+
+4. 서버와 클라이언트가 같은 방식을 사용해서 요청하도록 한다.
+
+  - 브라우저는 form-data 형식의 submit으로 보내고 서버에서는 json 형태로 보내는 식의 분리보다는 json으로 보내든, 둘 다 form-data 형식으로 보내든 하나로 통일한다.
+
+  - 다른 말로 표현하자면 URI가 플랫폼 중립적이어야 한다.
+
+### RESTful API 디자인 가이드
+
+  REST API 설계 시 가장 중요한 항목은 다음의 2가지로 요약할 수 있다.
+
+  - URI는 정보의 자원을 표현해야 한다.
+  - 자원에 대한 행위는 HTTP Method(GET, POST, PUT, DELETE)로 표현한다.
+
+  > 잘못된 예)
+  >
+  > GET /members/delete/1
+
+  delete와 같은 행위에 대한 표현이 들어가서는 안된다.
+
+  > 올바른 예)
+  >
+  > DELETE /members/1
+
+  - URI 설계 시 주의할 점
+
+    1) 슬래시 구분자(/)는 계층 관계를 나타내는데 사용
+
+    > http://restapi.example.com/animals/mammals/whales
+
+    2) URI 마지막 문자로 슬래시(/)를 포함하지 않는다.
+
+    REST API는 분명한 URI를 만들어 통신을 해야 하기 때문에 혼동을 주지 않도록 URI 경로의 마지막에는 슬래시(/)를 사용하지 않는다.
+
+    > http://restapi.example.com/houses/apartments/ (X)
+    >
+    > http://restapi.example.com/houses/apartments  (0)
+
+    3) 하이픈(-)은 URI 가독성을 높이는데 사용 && 밑줄(\_)은 URI에 사용하지 않는다.
+
+    불가피하게 긴 URI경로를 사용하게 된다면 하이픈을 사용해 가독성을 높인다. 그렇지만, 밑줄때문에 밑줄(\_)이 가려서 잘 보이지 않을 수 있다. 따라서 밑줄(\_)은 사용하지 않는다.
+
+    4) URI 경로에는 소문자가 적합하다.
+
+    대소문자에 따라 다른 리소스로 인식하게 되기 때문에, URI 경로에는 대문자를 사용하지 않는다.
+
+    5) 파일 확장자는 URI에 포함시키지 않는다.
+
+    > http://restapi.example.com/members/soccer/345/photo.jpg (X)

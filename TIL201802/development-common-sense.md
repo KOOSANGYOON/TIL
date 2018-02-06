@@ -122,11 +122,12 @@
 
   - 행위는 `HTTP Method` 로 표현하고, `GET(조회)`, `POST(생성)`, `PUT(기존 entity 전체 수정)`, `PATCH(기존 entity 일부 수정)`, `DELETE(삭제)` 을 분명한 목적으로 사용한다.
 
-  |  <center>Header1</center> |  <center>Header2</center> |  <center>Header3</center> |
-  |:--------|:--------:|--------:|
-  |**cell 1x1** | <center>cell 1x2 </center> |*cell 1x3* |
-  |**cell 2x1** | <center>cell 2x2 </center> |*cell 2x3* |
-  |**cell 3x1** | <center>cell 3x2 </center> |*cell 3x3* |
+  |  <center>METHOD</center> |  <center>역할</center> |
+  |:--------:|:--------:|:--------:|
+  |**POST**  | <center>POST를 통해 해당 URI를 요청하면 리소스를 생성합니다.</center> |
+  |**GET**   | <center>GET를 통해 해당 리소스를 조회합니다. 리소스를 조회하고 해당 도큐먼트에 대한 자세한 정보를 가져온다.</center> |
+  |**PUT** | <center>PUT를 통해 해당 리소스를 수정합니다.</center> |
+  |**DELETE** | <center>DELETE를 통해 리소스를 삭제합니다.</center> |
 
 2. Message는 Header와 Body를 명확하게 분리해서 사용한다.
 

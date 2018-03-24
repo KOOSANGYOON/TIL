@@ -66,3 +66,29 @@ handlerInterceptorAdapter 를 extend 해야하고,
 preHandle 메서드를 @Override 해주어야 제대로 작동한다.
 
 LoginUserHandlerMethodArgumentResolver() 클래스를 살펴보면 @LoginUser 어노테이션을 다루는 부분이다.
+
+---
+Transaction
+
+두 개 이상 묶어놓은 객체들에 대한 변화가 있을때에, 한개의 메서드라도 에러가 나면 나머지 잘 된 메서드도 다시 원복시키는 것.
+
+```java
+@Transactional
+public User update() {
+  User user = userRepo.findOne(id);
+  user.update();
+  return user;
+}
+```
+
+이렇게만 해도
+
+```java
+public User update() {
+  User user = userRepo.findOne(id);
+  user.update();
+  return userRepo.save(user);
+}
+```
+
+와 같은 효과를 낼 수 있으며, 이는 조금 더 객체지향적이라고 할 수 있다.

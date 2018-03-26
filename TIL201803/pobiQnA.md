@@ -73,4 +73,4 @@
   - OS 에서 Process 와 Thread 에 대해 공부하자.
   - 이후에는, sync / async & blocking / non-blocking 에 대해 심도깊게 고민하자.
   - 백엔드 개발자로써 큰 발전을 이루게 된다.
-  - context switching 이란 무엇인가 ? 추가 학습 필요
+  - context switching(멀티 스레드의 단점)이란 무엇인가 ? 추가 학습 필요

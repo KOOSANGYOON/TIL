@@ -1,6 +1,8 @@
-# POBI QnA (18.04.12)
+# POBI QnA
 
-## interceptor
+## interceptor (18.04.12)
+
+## test initialize (18.04.16)
 
 ---
 ### interceptor
@@ -88,6 +90,17 @@
 - 그래서 나온것이 spring AOP 이다. (repository 나 service 등 여러 부분에서 사용 가능하다.)
 
 - 웹 개발중 은연중에 사용한 AOP 는 바로 `Transactional` 이다.
+
+
+---
+### Test initialize
+
+
+
+
+
+
+
 
 
 ---

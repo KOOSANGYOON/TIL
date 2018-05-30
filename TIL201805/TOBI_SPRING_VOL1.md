@@ -44,7 +44,6 @@
   - ISP (The Interface Segregation Principle) : 인터페이스 분리 원칙
   - DIP (The Dependency Inversion Principle) : 의존관계 역전 원칙
 
-- 
+-
 ---
-
 ---

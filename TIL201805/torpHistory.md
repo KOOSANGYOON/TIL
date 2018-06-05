@@ -60,3 +60,21 @@
 ---
 ## 2018.06.04
 - ajax 로 board, deck, card를 구성하다보니, `{{# deck }} ... {{/ deck }}` 과 같은 `for문` 처럼 돌아가는 html 안에는 append 시키는데에 한계가 있었다. 이 부분은 수정이 필요하다. (현재는 refresh하는 방식으로 사용중이다.)
+
+---
+## 2018.06.05
+- board.js 내부에 openCardModel 메서드 내에서
+
+  ```javascript
+  var cardId = $(e.target).closest(".deck-card").attr("value");
+  $(".close-moadl").text(cardId);
+  ```
+  와 같이 클래스 내부에 card의 id값을 숨겨 두려고 함.
+  이 때도 역시나 기존에 구성되어있던 card들에 대해서는 `cardId` 값을 잘 받아온다. 하지만, 방금 만든 카드는, js로
+
+  ```javascript
+  var $deckWrapper = $(eventTarget.closest(".deck-wrapper"));
+  $deckWrapper.find(".deck-cards-exist").append(card);
+  ```
+
+  와 같이 append 시켜주기 때문에 html 안에 있는 card 리스트에 포함되지 않고, 그저 포함된 것처럼 띄워지기만 한다. 이로인해 card의 id값을 받아오지 못해 `undefined` 되는 경우가 발생한다. 추 후 수정이 필요하다.

@@ -84,3 +84,75 @@
 - board.js 에서 `addComment` 메서드 실행 시, 데이터베이스에는 잘 저장이 되나, 새로고침 후에 다시 card를 눌렀을 때, Comment들이 띄워지지 않음. jquery 문법에 익숙치 않아서 구현되지 않은 기능이다. 추 후 질문 필요.
 
 ---
+## 2018.06.07
+- board.js 내부에 openCardModel 메서드 수정.
+
+  - 기존 코드
+  ```javascript
+  function openCardModal(e){
+
+        $("#modal").modal('open');
+
+        var boardId = $(".board-header-area").attr("value");
+        var cardId = $(e.target).closest(".deck-card").attr("value");
+        var deckId = $(e.target).closest(".deck-cards-exist").attr("value");
+        console.log("target : ", e.target);
+        console.log("card id : ", cardId);
+        console.log("deck id : ", deckId);
+
+        $(".hiddenCardTitle").text(cardId);
+        $(".hiddenDeckTitle").text(deckId);
+
+        var description = $(e.target).closest(".deck-card-description").attr("value");
+        console.log("description : ", description);
+        $(".card-description").text(description);
+
+        var title = $(e.target).text();
+        $(".card-title-in-modal").text(title);
+        var deckName = $(e.target).closest(".deck-content").find(".deck-header-name").val();
+        $(".deck-name").text(deckName);
+
+    }
+  ```
+
+  - 수정 후
+  ```javascript
+  function openCardModal(e){
+
+        $("#modal").modal('open');
+
+        var boardId = $(".board-header-area").attr("value");
+        var cardId = $(e.target).closest(".deck-card").attr("value");
+        var deckId = $(e.target).closest(".deck-cards-exist").attr("value");
+        console.log("target : ", e.target);
+        console.log("card id : ", cardId);
+        console.log("deck id : ", deckId);
+
+        $(".hiddenCardTitle").text(cardId);
+        $(".hiddenDeckTitle").text(deckId);
+
+        var url = "/api/boards/" + boardId + "/" + deckId + "/" + cardId + "/cardInfo";
+        console.log("url : ", url);
+
+        $.ajax({
+            type: 'post',
+            url: url,
+            contentType: 'text/html; charset=utf-8',
+            data: cardId,
+            dataType: 'json'}).done(function getCardSuccess(data) {
+                console.log("data : ", data);
+                $(".card-description").text(data.description);
+                $(".card-title-in-modal").text(data.title);
+                $(".deck-name").text(data.toDoDeck.title);
+
+                for (var i = 0; i < data.comments.length; i++) {
+                    var writerSection = data.comments[i].writer.userId + "'s comment :";
+                    var comment = data.comments[i].comment;
+                    $(commentTemplate({"comment-contents":comment, "writer-name":writerSection})).appendTo(".comments");
+                }
+        }).fail(function getCardFail() {
+            console.log("get card info fail.");
+        });
+    }
+  ```
+  - ajax 처리를 이용해서 객체를 model에 담아주는 형식으로 변환. 이를 통해서 card를 눌러서 상세 정보를 볼 때에 모든 comment 가 같이 뜰 수 있게 만들었다.

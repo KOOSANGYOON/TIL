@@ -171,3 +171,20 @@
   ```
 
   이 구문을 이용해서 기존에 append 되어있던 것들을 clear 하고, 다시 그 카드에 맞게 append 시키는 동작을 수행함으로써 가각의 카드에 맞는 comment 들만 띄워지게 만들었다.
+
+---
+### ToDoBoard 의 name 을 수정하는 부분 UI 수정 필요.
+
+```javascript
+$(".edit-board-title-btn").on("click", editBoardForm);
+$(".edit-board-title-btn-submit").on("click", editBoardName);
+$(".edit-board-title-btn-cancel").on("click", cancelEditBoardName);
+```
+
+부분의 수정이 필요하다.
+
+---
+## drag - drop
+## chat bot
+
+두가지 기능을 생각해보자.

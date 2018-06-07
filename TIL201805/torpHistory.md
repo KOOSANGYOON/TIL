@@ -156,3 +156,18 @@
     }
   ```
   - ajax 처리를 이용해서 객체를 model에 담아주는 형식으로 변환. 이를 통해서 card를 눌러서 상세 정보를 볼 때에 모든 comment 가 같이 뜰 수 있게 만들었다.
+
+  ### 여기서 문제 발생!
+  - comment 들은 동적으로 잘 받아오지만,
+
+  > 1. A 카드에 comment들을 추가하고, B 카드를 클릭했을 때,
+  >
+  > 2. A 카드를 눌러 상세보기 했다가, B 카드를 눌러 상세보기할 때,
+
+  이와 같은 경우에 A 카드에만 append 되어야 하는데 B 카드에도 A 카드의 comment가 append 되어있는 상황이 발생했다. 이는 <div class='comments'></div> 라는 태그 안에 계속해서 append 되고, refresh 되는 부분이 없어서 발생하는 것으로 판단했고, openCardModal 내부의 ajax success 부분에 아래와 같은 한 줄을 추가했다.
+
+  ```javascript
+  $(.comments).empty();
+  ```
+
+  이 구문을 이용해서 기존에 append 되어있던 것들을 clear 하고, 다시 그 카드에 맞게 append 시키는 동작을 수행함으로써 가각의 카드에 맞는 comment 들만 띄워지게 만들었다.

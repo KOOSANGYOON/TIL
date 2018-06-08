@@ -188,3 +188,7 @@ $(".edit-board-title-btn-cancel").on("click", cancelEditBoardName);
 ## chat bot
 
 두가지 기능을 생각해보자.
+
+---
+## 2018.06.08
+- 카드 이름 변경시 카드 상에서, 그리고 데이터베이스 상에서는 잘 변경이 된다. 하지만, Deck에 적혀있는 이름은 refresh하지않으면 변경되지 않는 문제가 남았다. 이 부분만 수정하면 카드이름변경 기능 완성이다.

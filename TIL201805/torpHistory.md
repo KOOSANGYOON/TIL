@@ -190,5 +190,40 @@ $(".edit-board-title-btn-cancel").on("click", cancelEditBoardName);
 두가지 기능을 생각해보자.
 
 ---
-## 2018.06.08
+## 2018.06.08 (수정 완료.)
 - 카드 이름 변경시 카드 상에서, 그리고 데이터베이스 상에서는 잘 변경이 된다. 하지만, Deck에 적혀있는 이름은 refresh하지않으면 변경되지 않는 문제가 남았다. 이 부분만 수정하면 카드이름변경 기능 완성이다.
+
+## 2018.06.09
+- 어제의 문제를 수정 완료함. 자세한 코드를 첨부하여 이러한 코드가 성능적으로는 문제가 없는지 알아볼 필요가 있음.
+
+  > 첨부 : 'board.js' file의 editCardTitle() method
+  >
+  > 불필요한 부분은 적지 않고, 중요 부분만 작성
+
+  ```javascript
+  function editCardTitle(e) {
+        ...
+        $.ajax({
+            type: 'put',
+            url: url,
+            contentType: 'text/html; charset=utf-8',
+            data: newCardTitle,
+            dataType: 'json'
+        }).done(function editCardTitleSuccess() {
+            console.log("edit success.");
+            var test = $(".deck-cards-exist").find(".deck-card-title");
+
+            //이 for문의 필요성에 대해 생각해봐야 한다.
+            for (var i = 0; i < test.length; i++) {
+                if ($(test.get(i)).attr('value') === cardId) {
+                    console.log($(test.get(i)).attr('value'));
+                    $(test.get(i)).text(newCardTitle);
+                }
+            }
+
+            console.log("test : ", test);
+        }).fail(function editCardTitleFail() {
+            console.log("edit fail.");
+        });
+    }
+  ```

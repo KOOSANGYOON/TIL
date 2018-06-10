@@ -234,3 +234,7 @@ $(".edit-board-title-btn-cancel").on("click", cancelEditBoardName);
 - board delete 시에 modal이 뜨는 것 까지만 구현 완료.
 - css 및 주요 기능은 아직 구현이 안됨. (restcontroller)
 - 추가 구현 필요.
+
+- 카드 삭제 기능을 구현 하더라도, 현재는 view단에 뿌려줄 때, deck들을 가져오고, 그 deck이 가지고 있는 card들을 {{# cards }} ... {{/ cards}} 와 같이 뿌려주고 있다. 만약 각각의 카드가 boolean delete 값이 true 가 되었을 때, 어떻게 해야 view단에 제대로 뿌려줄 수 있을까? 고민해보자.
+
+- 삭제를 할 때, boolean delete = true; 와 같이 하다보니, 하위 객체의 repository에서 상위 객체의 boolean delete 값을 보고 그 하위에 해당하는 모든 자신이 관리하는 객체들의 delete 상태를 true 로 바꿔주는 기능을 구현하고 싶다. 방법이 없을까? 생각해보자.

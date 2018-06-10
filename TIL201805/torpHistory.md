@@ -227,3 +227,10 @@ $(".edit-board-title-btn-cancel").on("click", cancelEditBoardName);
         });
     }
   ```
+
+---
+## 20180610
+
+- board delete 시에 modal이 뜨는 것 까지만 구현 완료.
+- css 및 주요 기능은 아직 구현이 안됨. (restcontroller)
+- 추가 구현 필요.

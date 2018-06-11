@@ -238,3 +238,10 @@ $(".edit-board-title-btn-cancel").on("click", cancelEditBoardName);
 - 카드 삭제 기능을 구현 하더라도, 현재는 view단에 뿌려줄 때, deck들을 가져오고, 그 deck이 가지고 있는 card들을 {{# cards }} ... {{/ cards}} 와 같이 뿌려주고 있다. 만약 각각의 카드가 boolean delete 값이 true 가 되었을 때, 어떻게 해야 view단에 제대로 뿌려줄 수 있을까? 고민해보자.
 
 - 삭제를 할 때, boolean delete = true; 와 같이 하다보니, 하위 객체의 repository에서 상위 객체의 boolean delete 값을 보고 그 하위에 해당하는 모든 자신이 관리하는 객체들의 delete 상태를 true 로 바꿔주는 기능을 구현하고 싶다. 방법이 없을까? 생각해보자.
+
+---
+## session timeout 설정을 수정해줘야 한다.
+- session 의 장단점.
+- 마지막 주에는 project 한 것에 대해서 정리를 하고 모의 면접을 본다.
+  (포트폴리오 작성 후 모의면접)
+- 문제해결능력과 빠른학습능력을 어필할 수 있는것이 중요하다. (문제만 해결하고 넘어가는 것이 아니라, 그 사이드 이펙트들에 대해서도 잘 정리하면서 학습했다. 식의 어필.)

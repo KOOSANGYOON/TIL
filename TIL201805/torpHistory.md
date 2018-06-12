@@ -250,3 +250,4 @@ $(".edit-board-title-btn-cancel").on("click", cancelEditBoardName);
 ## 20180612
 
 - @Autowired / @Resource 의 차이점이 뭘지 정리해보자
+- UnAuthenticationException / UnAuthorizationException 의 차이점이 뭘지 정리해보자

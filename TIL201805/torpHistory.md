@@ -251,3 +251,13 @@ $(".edit-board-title-btn-cancel").on("click", cancelEditBoardName);
 
 - @Autowired / @Resource 의 차이점이 뭘지 정리해보자
 - UnAuthenticationException / UnAuthorizationException 의 차이점이 뭘지 정리해보자
+
+---
+## 20180620
+
+- Travis CI 연동 관련해서 문제 발생
+  - 그동안 귀찮아서 root 계정으로 mysql 을 사용했었는데, Travis에서 제공되는 root 계정과 충돌이 났었던 것 같음.
+
+  - admin 계정을 추가, 권한 부여하고 (로컬, 원격 모두) 이후에 Travis 빌드 실행해보니 데이터베이스에 접근 까지는 가능했음.
+
+  - 에러 로그를 읽어보니, 데이터베이스에 한글이 들어가는 부분에서 ```Incorrect string value: '\xEC\x9E\x90\xEB\xB0\x94...' for column 'name' at row 1``` 라는 에러가 뜸. -> 한글이 부적합한 String 값이라고 하는 것을 보니, 데이터베이스 설정 시, 한글화 기능을 넣지 않은 것 같았음... 그게 맞았음... 데이터베이스 새로 셋팅 후 빌드 실시해보니 바로 통과 ... ㅋㅋ

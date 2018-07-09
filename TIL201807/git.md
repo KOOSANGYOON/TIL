@@ -41,7 +41,7 @@
 
 - checkout : HEAD를 이동한다.
   - 기본 form은 `git checkout <commit id>` 이지만, 우리는 `git checkout <branch 이름>` 으로 사용한다. 왜 그럴까?
-  > branch는 commit의 참조이기 때문이다.
+    > branch는 commit의 참조이기 때문이다.
 
   - 그림에서 `*`이 의미하는 것은 그 브랜치가 HEAD라는 표시이다. 이 상태에서 checkout을 한 결과, HEAD가 Commit 2로 이동했다.
 
@@ -58,13 +58,13 @@
 - merge : 두 Commit 을 합해서 새로운 Commit 을 생성한다.
 
 - push : local 저장소에 있는 file들을 원격 저장소로 올리는 행위. (변동 사항만)
-> 기본 form : git push <저장소 이름> <브랜치 이름>
+  > 기본 form : git push <저장소 이름> <브랜치 이름>
 
 - pull : 2가지 작업을 실시한다.
   - 원격 저장소에 있는 파일을 local 저장소로 가져온다.
   - HEAD Commit과, 브랜치의 가장 최근 Commit을 `merge`한다.
 
 - fetch : 원격 저장소와 local 저장소를 동기화한다.
-> local에 없는 Commit을 가져온다.
+  > local에 없는 Commit을 가져온다.
 
 - status : Working Directory와 Stage를 비교하여 다른 것을 보여준다.

@@ -78,3 +78,64 @@ B+ tree는 디스크용 자료구조이다.
 Secondary index에 대해 학습해보자.
 
 ---
+Relational | File system | DB
+
+relation | file | table
+
+tuple | record |
+
+attribute |
+
+---
+### transaction Isolation level
+
+1. read uncommitted (Isolation low) - 같은시간에 처리량이 많다.(throughput 이 높다.)
+
+2. read committed
+
+3. repeatable read
+
+4. serializable (Isolation high) - 같은시간에 처리량이 적다. 대신, 직렬적으로 처리하기 때문에 안정성이 높다.
+
+---
+### Database 쿼리 튜닝
+
+- 튜닝이란?
+  - 쿼리의 성능을 높이기 위한 방법
+
+- 암달의 저주(법칙)
+  - 시스템에서 차지하는 비율이 P인 구성요소의 성능을 S만큼 개선했을 때의 전체 성능 비율을 나타내는 공식
+
+  - 1 / {(1 - P) + (P / S)}
+
+  - 두 가지를 알려준다.
+    - 비율이 큰 요소를 성능개선해야한다.
+    - 성능을 아주 좋게 해도 큰 차이는 없을 것이다.
+
+- 병렬 프로그래밍 분야에서 왜 저주라고 하는가 ?
+  - 19.8배의 한계에 부딪힌다. (꼭 그런것은 아니다.)
+
+- 전반적인 scale out의 문제점이라고 볼 수 있다. (동기화 이슈)
+
+- 함수형 프로그래밍이 side effect로 성능의 감소를 막을 수 있기 때문에 뜨고있다.
+
+- DB 쿼리의 성능을 높이는 방법
+  - 더 비싼 하드웨어로 교체
+  - 시스템 튜닝
+  - 데이터 모델링을 통한 성능 개선
+  - 쿼리 튜닝
+
+- RDB vs NoSQL (mongoDB, Hadoop, NoSQL)
+  - RDB는 수평확장이 안된다..
+
+- 원인을 알아야한다.
+  - 정적 분석 : 실제 실행 전 성능을 예측하는 방법, 쿼리 플랜보기
+  - 프로파일링 : 실제 실행 후, 실행결과를 분석하는 방법
+
+- MySQL에서 쿼리 플랜을 보려면, explain 명령어를 써야한다.
+  - 예를 들어, select * from user; 라는 명령어의 쿼리플랜을 보려면,
+  > explain select * from user;
+
+    라고 치면 된다.
+
+---

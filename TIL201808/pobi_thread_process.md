@@ -62,6 +62,7 @@
 - 프로그램의 성능은 I/O에서 대부분 결정난다. (파일을 읽어오고 쓰고 등에 소모되는 시간)
 
 - 그림으로 설명
+ ![Image](./pobi_study.png)
 
 ---
 ### application 단에서의 sync vs async

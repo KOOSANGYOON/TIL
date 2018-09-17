@@ -12,6 +12,8 @@
 
 - '백엔드 개발자를 꿈꾸는 학생 개발자에게' 에 대한 정리
 
+durin2904
+tmdcjf124
 ---
 ### 마이리얼트립
 
@@ -34,6 +36,13 @@
 
     왜 의존성 주입을 하는가 ?
     > 모듈간의 결합도를 낮춰서 유연한 변경이 가능하다. -> 이는 유지보수와도 연결된다.
+
+  - ApplicationContext 의 역할
+  > Controller, Repository 등 SPRING 프로그램을 구동하기 위한 클래스들을 Bean으로 등록하고(만들어주고,), 만들어진 Bean들의 생명주기를 관리한다.
+
+  - 이렇게 생성된 Bean들의 의존관계나, 생명주기 등을 관리하고 추가 기능을 제공하는것이 `IoC container`이다.
+
+
 
 #### - Rest 설명. 원론적인 이야기 X 
 
@@ -308,3 +317,13 @@ MVC 
 
 NoSql
 AWS
+
+---
+### BasicAuth()
+
+addAuthentication method : HTTP 내에 오소리제이션 field 에 value를 넣어준다. value에 들어가는 Base64의 규칙은 (Id : password) 이다. Base64 로 인코딩하면 앞에 "Basic" 가 붙는다.
+
+
+
+
+---

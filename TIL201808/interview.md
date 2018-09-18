@@ -12,8 +12,6 @@
 
 - '백엔드 개발자를 꿈꾸는 학생 개발자에게' 에 대한 정리
 
-durin2904
-tmdcjf124
 ---
 ### 마이리얼트립
 
@@ -97,6 +95,9 @@ tmdcjf124
     - 어플리케이션 전체에 흩어진 공통 기능이 하나의 장소에서 관리된다는 점
     - 다른 서비스 모듈들이 본인의 목적에만 충실하고 그외 사항들은 신경쓰지 않아도 된다는 점
 
+  - AOP는 바이트 코드를 조작하여 Aspect를 기존 코드에 추가한다? (X)
+  - AOP는 프록시 패턴을 사용하여 메소드 호출을 가로채는 방식으로 동작한다. (O)
+
   - AOP 용어 정리
     - 타겟 (Target)
     > 부가기능을 부여할 대상을 얘기한다.
@@ -121,6 +122,52 @@ tmdcjf124
 
     - 위빙 (Weaving)
     > 지정된 객체에 애스팩트를 적용해서 새로운 프록시 객체를 생성하는 과정이다. 예를 들면 A라는 객체에 트랜잭션 애스팩트가 지정되어 있다면, A라는 객체가 실행되기전 커넥션을 오픈하고 실행이 끝나면 커넥션을 종료하는 기능이 추가된 프록시 객체가 생성되고, 이 프록시 객체가 앞으로 A 객체가 호출되는 시점에서 사용된다. 이때의 프록시객체가 생성되는 과정이 위빙이다.
+
+#### - @Transactional 이 이루어지는 과정
+  - Transaction manager 를 가지고 Transaction Auto Commit 를 false 로 만든다.
+  - 그 후에 작업(개발자가 작성한 코드 실행) -> try{} catch{} 로 묶어놓고 작업한다.
+  - Transaction 을 commit 한다.
+  - 개발자가 작성한 코드에서 catch 문 안에서는 어떠한 문제가 발생한 경우, 그 Transaction을 RollBack 시킨다.
+
+#### - @ (에노테이션 클래스 관련)
+  - @interface testAnnotation {} 로 선언해 준 어노테이션 클래스가 있다고 하자.
+  - 이 클래스 위에 여러 어노테이션을 추가할 수 있다.
+    - @Target : 이 어노테이션을 어디에 붙일 수 있는지 지정해준다.
+    > 예를들어 @Target(ElementType.Method) : 메서드에 달 수 있음을 알려준다.
+
+    - @Retention : 어노테이션을 사용한 코드를 언제까지 사용 할 건지 지정해준다.
+    > 예를들어 @Retention(RetentionPolicy.RUNTIME) : 실행 시간 동안에 사용한다는 것 알려준다.
+
+    - @Aspect : 실제 그 어노테이션의 동작을 구현한다.
+    ```Java
+    @Component
+    @Aspect
+    public class LogAspect {    //실행 시간을 찍어주는 어노테이션 클래스 구현체(Aspect)
+
+        Logger log = LoggerFactory.getLogger(LogAspect.class);
+
+        @Around("@annotation(LogExecutionTime)")  //LogExecutionTime 어노테이션이 붙은 곳 주변에서 아래의 일을 한다는것을 의미.
+        public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws throwable {
+          StopWatch stopWatch = new StopWatch();
+          stopWatch.start();
+
+          Object ret = joinPoint.proceed();
+
+          stopWatch.stop();
+          log.info(stopWatch.prettyPrint());
+
+          return ret;
+        }
+    }
+    ```
+
+#### - PSA 란?
+  - Portable Service Abstraction : 이식 가능한 서비스 추상화
+  - 기존의 내 코드가 확장성이 좋지 않고, 특정 기술에 특화되어 있다면(Hibernate / JPA 등), 기술 변화시마다 코드가 바뀌게 된다. 또한, 테스트 하기에도 불편한 코드가 된다.
+  - 이럴때, 이 인터페이스를 이용해서 내 코드를 작성하면, 확장/테스트 시에 아주 용이하다.
+  - 그렇다면 SPRING 에서 PSA 가 어떤걸까?
+    - SPRING에서 제공해주는 대부분의 API가 다 PSA이다.(...ㅋㅋ) : Resources, Validation, Data Binding, Transactions, ORM, JDBC 등등
+    - 그래서 밑단의 기술(Servlet/Reactive) 등이 바뀌어도 이 코드들은 정상 작동한다. (어느 특정 기술에 제한적이지 않다.)
 
 #### - 객체지향이란?  (OOP란?)
   - 객체 지향의 특징
@@ -327,3 +374,5 @@ addAuthentication method : HTTP 내에 오소리제이션 field 에 value를 넣
 
 
 ---
+durin2904
+tmdcjf124

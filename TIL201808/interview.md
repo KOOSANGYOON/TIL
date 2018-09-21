@@ -226,13 +226,27 @@
 #### - JVM의 메모리 관리에 대해서 알고 있나요? 
 #### - GC의 동작 원리에 대해서 자세히 질문 
 #### - JPA를 사용했는데, lazy loading이 무엇인지? 
+  - 엔티티를 사용하는 그 시점에(필요할 때에) 로딩해오는 방식이다. 반대말로 eager loading(즉시 로딩)이란, 엔티티를 사용할 때, 연관된 모든 엔티티를 조회해오는 방식이다. 예를 들어, @OneToMany 관계가 설정되 있는 객체를 살펴보면, One에 해당하는 객체를 가져올 때, Many에 해당하는 모든 객체들을 다 불러온다면, 이는 성능의 관점에서 봤을때, 굉장한 비효율이 발생한다. Many에 해당하는 객체를 사용하지 않을 것인데 불러오는 결과가 발생하기 때문이다. 때문에 JPA는 개발자가 FetchType을 EAGER로 설정하지 않는 한, 기본적으로 Many에 해당하는 객체를 Lazy Loading한다.
+
 #### - Open session in view에 대해서도 알고 있는지? 
+  - Transaction을 뷰 렌더링이 끝나는 시점까지 유지하는 것을 의미한다. lazy loading으로 조회해오는 데이터는 실젝 엔티티가 아닌, 프록시 객체를 담고 있는데, 이를 바로 뷰단에 렌더링 할 때, `org.hibernate.LazyInitializationException`이 발생한다. 이를 해결하기 위해 나온것이 open session in view 이다. SPRING에서는 FlushMode 와 ConnectionReleaseMode의 조정을 통해서 이를 해결한다. 스프링 Boot에서는 Open Session In View 패턴을 OpenEntityManagerInViewInterceptor를 통해 default로 지원을 해주고 있다.
+
 #### - 왜 스프링부트가 open session in view = true 로 했는지? 
+
 #### - 테스트 코드 작성 시 before같은거 알고 있는지? 
+  - @Before : 각각의 테스트코드(메서드) 실행 전에 미리 실행할 메서드.
+  - @After : 각각의 테스트코드(메서드) 실행 후에 실행할 메서드.
+
+  - @BeforeClass / @AfterClass : 전체 클래스(테스트 클래스) 실행 전과 후에, 단 한번만 실행될 메서드 정의.
+
 #### - 본인이 코드 구현할 때 테스트를 어떤식으로 생각하고 구현하는지? 
-#### - 코드스쿼드에서 배울 때 팁같은 것들을 많이 듣는지? 예를 들어 테스트할때는 어떤 것들을 생각해야 하는지? 
+
+#### - 코드스쿼드에서 배울 때 팁같은 것들을 많이 듣는지? 예를 들어 테스트할때는 어떤 것들을 생각해야 하는지?
+ 
 #### - 실제 현업에서는 테스트 코드 어떻게 짤 것 같냐고 질문 
+
 #### - 그럼 DI에 대해서 말씀해 주시고, DI방식으로 개발하는 것이 어떤 측면에서 좋을지? 
+
 #### - 멀티스레드 프로그래밍 해보았는지? 
 
 ### 우아한형제들
@@ -246,18 +260,42 @@
 #### - JPA 버져닝을 해보셨나요 
 
 
-
-
-
 ### 하이퍼커넥트
 #### - 데드락 개념, 해결 방안, synchronized, 그럼 데드락을 일부러 만든다면 어떻게? 
 #### - left join과 join의 차이 
+  - A 와 B 테이블이 있을 때, query의 'where'절의 조건에 따라 두 테이블을 묶어서 데이터를 조회한다고 하자.
+  > Join 사용시에, A와 B 테이블 사이에 where절에 조건에 해당하는 데이터들만 가져온다. 즉 조건절에 대한 요건이 A와 B모두 가지고 있는 데이터를 출력해준다. 따라서 조건에 해당하지 않는 row는 가져오지 않는다.
+
+  > Left Join 사용시에는, 마찬가지로 공통으로 조건절에 해당하는 데이터(row)를 조회해오지만, 추가적으로 가져오는 데이터가 있다. A테이블에서는 만족하고, B테이블에서는 만족하지 못하는 row가 있을 때, Left Join의 경우는 그 row도 가져온다. 하지만, Join된 row를 가져오는것이 아니고, A테이블의 데이터 + null(B테이블에서 조건을 만족하지 않기 때문에 해당 row의 B테이블 데이터는 비어있다.)의 형식으로 조회해온다.
+
 #### - transactional isolation level 
+  - Locking 은 트랜잭션이 DB를 다루는 동안 다른 트랜잭션이 관여하지 못하게 막는 것이다. DB의 무결성을 보장하기 위해 사용된다. 개발자는 이 Locking을 너무 관대하게 설정하기만해서, 또는 너무 빡빡하게 설정하기만해서는 좋은 설정을 할 수 없다. 그 쓰임새에 알맞게 조정해야 한다. 이 조정하는 레벨을 `transactional isolation level`이라고 한다.
+
+  - Isolation level 정리
+    - Read Uncommitted
+    > 어떤 사용자가 A라는 데이터를 B라는 데이터로 변경하는 동안 다른 사용자는 B라는 아직 완료되지 않은(Uncommitted 혹은 Dirty) 데이터 B를 읽을 수 있다.
+
+    - Read Committed
+    > SQL Server가 Default로 사용하는 Isolation Level. 이 Level에선 SELECT 문장이 수행되는 동안 해당 데이터에 Shared Lock이 걸린다. 그러므로, 어떠한 사용자가 A라는 데이터를 B라는 데이터로 변경하는 동안 다른 사용자는 해당 데이터에 접근할 수 없다.
+
+    - Repeatable Read
+    > 트랜잭션이 완료될 때까지 SELECT 문장이 사용하는 모든 데이터에 Shared Lock이 걸리므로 다른 사용자는 그 영역에 해당되는 데이터에 대한 수정이 불가능하다. 하지만 입력은 가능하다.
+
+    - Serializable
+    > 트랜잭션이 완료될 때까지 SELECT 문장이 사용하는 모든 데이터에 Shared Lock이 걸리므로 다른 사용자는 그 영역에 해당되는 데이터에 대한 수정 및 입력이 불가능하다.
+
 #### - sql injection 
+  - sql구문을 입력하면서 보안을 뚫는 해킹이다. 예를들어 로그인 컨트롤러에서 ID와 PASSWORD에 대한 정보를 쿼리문을 이용해서 받고, 그 쿼리문을 그대로 데이터베이스에 적용하는 식으로 운영 된다면, ID나 PASSWORD에 sql구문을 넣어서 로그인 시도를 했을때에 로그인 처리가 될 수 있다.
+
 #### - static inner와 inner 클래스의 차이 
+
 #### - wrapper 클래스는왜 쓰냐? 
+  - 기본 데이터 타입들을 객체로 취급해야 하는 경우에 사용한다.
+
 #### - heap과 stack의 차이는? 
+
 #### - hash table 설명, 충돌 설명, 해결 방안, hashmap과의 차이, 다른 hash 구조와 비교, 순서  
+
 #### - unicode와 utf8의 차이 
 #### - jpa @version을 아는가  
 #### - java @synchronized를 아는가 

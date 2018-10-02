@@ -9,6 +9,8 @@
   - 우아한형제들
   - 하이퍼커넥트
   - 티몬
+  - 조이시티
+  - 어웨어
 
 - '백엔드 개발자를 꿈꾸는 학생 개발자에게' 에 대한 정리
 
@@ -229,7 +231,7 @@
   - 엔티티를 사용하는 그 시점에(필요할 때에) 로딩해오는 방식이다. 반대말로 eager loading(즉시 로딩)이란, 엔티티를 사용할 때, 연관된 모든 엔티티를 조회해오는 방식이다. 예를 들어, @OneToMany 관계가 설정되 있는 객체를 살펴보면, One에 해당하는 객체를 가져올 때, Many에 해당하는 모든 객체들을 다 불러온다면, 이는 성능의 관점에서 봤을때, 굉장한 비효율이 발생한다. Many에 해당하는 객체를 사용하지 않을 것인데 불러오는 결과가 발생하기 때문이다. 때문에 JPA는 개발자가 FetchType을 EAGER로 설정하지 않는 한, 기본적으로 Many에 해당하는 객체를 Lazy Loading한다.
 
 #### - Open session in view에 대해서도 알고 있는지? 
-  - Transaction을 뷰 렌더링이 끝나는 시점까지 유지하는 것을 의미한다. lazy loading으로 조회해오는 데이터는 실젝 엔티티가 아닌, 프록시 객체를 담고 있는데, 이를 바로 뷰단에 렌더링 할 때, `org.hibernate.LazyInitializationException`이 발생한다. 이를 해결하기 위해 나온것이 open session in view 이다. SPRING에서는 FlushMode 와 ConnectionReleaseMode의 조정을 통해서 이를 해결한다. 스프링 Boot에서는 Open Session In View 패턴을 OpenEntityManagerInViewInterceptor를 통해 default로 지원을 해주고 있다.
+  - Transaction을 뷰 렌더링이 끝나는 시점까지 유지하는 것을 의미한다. lazy loading으로 조회해오는 데이터는 실제 엔티티가 아닌, 프록시 객체를 담고 있는데, 이를 바로 뷰단에 렌더링 할 때, `org.hibernate.LazyInitializationException`이 발생한다. 이를 해결하기 위해 나온것이 open session in view 이다. SPRING에서는 FlushMode 와 ConnectionReleaseMode의 조정을 통해서 이를 해결한다. 스프링 Boot에서는 Open Session In View 패턴을 OpenEntityManagerInViewInterceptor를 통해 default로 지원을 해주고 있다.
 
 #### - 왜 스프링부트가 open session in view = true 로 했는지? 
 
@@ -297,7 +299,12 @@
 #### - hash table 설명, 충돌 설명, 해결 방안, hashmap과의 차이, 다른 hash 구조와 비교, 순서  
 
 #### - unicode와 utf8의 차이 
+  - unicode는 그냥 코드 표 이다. 숫자와 글자, 즉, 키와 값이 매핑된 문자표와 같다.
+  - utf-8은 이 표를 바탕으로 실제 문자들을 인코딩하는 방식이다.
+
 #### - jpa @version을 아는가  
+  -
+
 #### - java @synchronized를 아는가 
 #### - equals 오버라이드시 주의점 (hashcode 오버라이드) 
 #### - spring boot는 왜 쓰는가? java는 얼마나 했는가? 컴공인가? 
@@ -323,6 +330,22 @@
 #### - Java8 특징 
 #### - 세션과 쿠키의 차이 
 #### - main메서드에 static이 있는 이유 
+
+### 조이시티
+#### - 스프링의 특징? 왜 스프링 쓰는지?
+#### - 스트림?
+#### - mvc?
+#### - model2?
+#### - connection pool?
+#### - 테스트 할때 repository 같이 외부와 연결된 경우 테스트 어떻게?
+
+### 어웨어
+#### - 링크드리스트에 대해 설명
+#### - 프로세스와 스레드 설명
+#### - 스택과 힙 설명
+#### - TDD에 대해서 설명
+#### - TCP와 HTTP 차이
+
 
 ### 백엔드 개발자를 꿈꾸는 학생개발자에게
 

@@ -322,6 +322,14 @@
 #### - Spring MVC 구조 설명 
 #### - Filter를 아는가 
 #### - Filter와 Intercepter의 차이 
+  - Filter는 DispatcherServlet 앞단에서 전, 후처리를 담당하기 때문에, 웹 전체적으로 보안과 관련된(인코딩) 부분을 담당한다.
+
+  - 인터셉터는 DispatcherServlet 뒷단에서 (handler (controller) 와 DispatcherServlet 사이에서) 추가적인 처리를 해줘야 할 때 사용한다.
+
+  - 또한, 인터셉터는 2개 이상 만들 수 있지만, filter는 그럴 수 없다.
+
+  - DispatcherServlet부터가 Spring ApplicationContext이다.
+
 #### - 테스트코드 왜 짜게 되었는가 
 #### - ATDD란 
 #### - 스레드와 프로세스 차이 
@@ -341,9 +349,14 @@
 
 ### 어웨어
 #### - 링크드리스트에 대해 설명
+  - 노드가 있고, 다음 노드의 주소를 가지고 있는 형태로, 여러개의 노드가 연결되어있는 형태.
+
 #### - 프로세스와 스레드 설명
+
 #### - 스택과 힙 설명
+
 #### - TDD에 대해서 설명
+
 #### - TCP와 HTTP 차이
 
 
